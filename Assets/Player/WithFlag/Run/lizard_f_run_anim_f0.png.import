@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lizard_f_idle_anim_f0-1.png.png-58d327d21c62a2a0f09cb17ff862c9ff.stex"
+path="res://.import/lizard_f_run_anim_f0.png-497ab96fcedf067300cbbdb179337e63.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Player/WithFlag/lizard_f_idle_anim_f0-1.png.png"
-dest_files=[ "res://.import/lizard_f_idle_anim_f0-1.png.png-58d327d21c62a2a0f09cb17ff862c9ff.stex" ]
+source_file="res://Assets/Player/WithFlag/Run/lizard_f_run_anim_f0.png"
+dest_files=[ "res://.import/lizard_f_run_anim_f0.png-497ab96fcedf067300cbbdb179337e63.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

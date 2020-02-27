@@ -2,7 +2,10 @@ extends KinematicBody2D
 
 export var player_speed = 75
 export var type = "player"
-export var player_team = "A"
+
+enum Team { A, B }
+export(Team) var team = Team.A
+
 var MAX_SPEED = 500
 var ACCELERATION = 2000
 var motion = Vector2()
@@ -17,6 +20,7 @@ enum {
 }
 
 var flag = false
+var carry_flag = false
 
 var state = STATE_IDLE
 var previous_state = state
@@ -27,9 +31,6 @@ func state_machine(direction):
 			idle_player()
 		STATE_RUNNING:
 			move_player(direction)
-		STATE_FLAG:
-			$Sprite.play("with_flag")
-			
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
@@ -54,9 +55,6 @@ func animates_player(direction: Vector2):
 	if direction != Vector2.ZERO:
 		state = STATE_RUNNING
 	
-	if flag == true:
-		state = STATE_FLAG
-	
 	if player_speed >= 300:
 		state = STATE_DASHING
 	
@@ -65,7 +63,6 @@ func animates_player(direction: Vector2):
 
 func get_animation_direction(direction: Vector2):
 	var norm_direction = direction.normalized()
-	print(norm_direction.x)
 	if norm_direction.x <= -0.707:
 		$Sprite.flip_h = true
 		last_direction = Vector2(-1, 0)
@@ -74,12 +71,21 @@ func get_animation_direction(direction: Vector2):
 		last_direction = Vector2(1, 0)
 		
 func idle_player():
-	$Sprite.play("idle")
+	if carry_flag:
+		$Sprite.play("idle_with_flag")
+	else:
+		$Sprite.play("idle")
 
 func move_player(direction: Vector2):
 	get_animation_direction(direction)
 	last_direction = direction
-	$Sprite.play("run")
+	if carry_flag:
+		$Sprite.play("run_with_flag")
+	else:
+		$Sprite.play("run")
 	
 func catch_flag():
-	flag = true
+	carry_flag = true
+
+func drop_flag():
+	carry_flag = false
