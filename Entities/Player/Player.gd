@@ -2,6 +2,9 @@ extends KinematicBody2D
 
 export var player_speed = 75
 export var type = "player"
+export var player_name = "Igor"
+
+signal set_player_info
 
 enum Team { A, B }
 export(Team) var team = Team.A
@@ -24,7 +27,10 @@ var carry_flag = false
 
 var state = STATE_IDLE
 var previous_state = state
-	
+
+func _ready():
+	emit_signal("set_player_info", player_name, team)
+
 func state_machine(direction):
 	match state:
 		STATE_IDLE:
