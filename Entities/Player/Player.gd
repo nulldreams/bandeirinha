@@ -2,9 +2,13 @@ extends KinematicBody2D
 
 export var player_speed = 75
 export var type = "player"
+export var player_name = "Igor"
+
+signal set_player_info
 
 enum Team { A, B }
 export(Team) var team = Team.A
+export var main_player = true
 
 var MAX_SPEED = 500
 var ACCELERATION = 2000
@@ -24,7 +28,10 @@ var carry_flag = false
 
 var state = STATE_IDLE
 var previous_state = state
-	
+
+func _ready():
+	emit_signal("set_player_info", player_name, team)
+
 func state_machine(direction):
 	match state:
 		STATE_IDLE:
@@ -49,7 +56,10 @@ func _physics_process(delta):
 	animates_player(direction)
 	state_machine(direction)
 	previous_state = state
-	move_and_collide(movement)
+	if main_player:
+		move_and_collide(movement)
+	else:
+		$Camera2D.current = false
 
 func animates_player(direction: Vector2):
 	if direction != Vector2.ZERO:
@@ -89,3 +99,9 @@ func catch_flag():
 
 func drop_flag():
 	carry_flag = false
+
+func freeze_player():
+	$Sprite.modulate = Color(0, 0, 1)
+
+func _on_ColisionArea_body_entered(body):
+	print(body.team != team)
