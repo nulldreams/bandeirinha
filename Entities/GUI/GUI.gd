@@ -13,10 +13,11 @@ func _ready():
 	player.connect("set_player_info", self, "set_player_info")
 
 func set_player_info(name, team):
-	$PanelLeft/Name.text = name
+	pass
+#	$PanelLeft/Name.text = name
 
 func update_team_points(team):
 	if teams[team] == "A":
-		$PanelMid2/PanelMid/TeamAPoints.text = str(int($PanelMid2/PanelMid/TeamAPoints.text) + 1)
+		$Score/TeamAPoints.text = str(int($Score/TeamAPoints.text) + 1)
 	elif teams[team] == "B":
-		$PanelMid2/PanelMid/TeamBPoints.text = str(int($PanelMid2/PanelMid/TeamBPoints.text) + 1)
+		$Score/TeamBPoints.text = str(int($Score/TeamBPoints.text) + 1)

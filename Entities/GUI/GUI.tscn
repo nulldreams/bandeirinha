@@ -1,112 +1,104 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Fonts/Fonts.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Assets/New Piskel-1.png (1).png" type="Texture" id=2]
 [ext_resource path="res://Entities/GUI/GUI.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Stamina.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Fonts/equipament.tres" type="DynamicFont" id=5]
 
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource( 3 )
 
-[node name="PanelLeft" type="ColorRect" parent="."]
-margin_left = 10.0
-margin_top = 145.0
-margin_right = 84.0
-margin_bottom = 154.0
-color = Color( 0, 0, 0, 0.627451 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Score" type="Sprite" parent="."]
+position = Vector2( 163.123, 154.863 )
+texture = ExtResource( 2 )
 
-[node name="Name" type="Label" parent="PanelLeft"]
-margin_left = 136.509
-margin_top = -121.736
-margin_right = 176.509
-margin_bottom = -111.736
-custom_fonts/font = ExtResource( 1 )
-text = "$NOME"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stamina" type="ColorRect" parent="PanelLeft"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 73.0
-margin_bottom = 8.0
-color = Color( 0.901961, 1, 0.541176, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PanelMid2" type="ColorRect" parent="."]
-margin_left = 111.318
-margin_top = 0.37735
-margin_right = 227.318
-margin_bottom = 37.3773
-color = Color( 0, 0, 0, 0.517647 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PanelMid" type="ColorRect" parent="PanelMid2"]
-margin_left = 18.2343
-margin_right = 90.2343
-margin_bottom = 20.0
-color = Color( 0, 0, 0, 0.517647 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TeamName" type="Label" parent="PanelMid2/PanelMid"]
-margin_left = -9.65219
-margin_top = 5.92745
-margin_right = -3.65219
-margin_bottom = 15.9274
-custom_fonts/font = ExtResource( 1 )
-text = "A"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TeamName2" type="Label" parent="PanelMid2/PanelMid"]
-margin_left = 77.4519
-margin_top = 6.0
-margin_right = 83.4519
-margin_bottom = 16.0
+[node name="TeamName2" type="Label" parent="Score"]
+margin_left = 40.5291
+margin_top = -10.8349
+margin_right = 50.5291
+margin_bottom = 6.16505
 custom_fonts/font = ExtResource( 1 )
 text = "B"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TeamName3" type="Label" parent="PanelMid2/PanelMid"]
-margin_left = 34.2079
-margin_top = 6.0
-margin_right = 40.2079
-margin_bottom = 16.0
+[node name="TeamName" type="Label" parent="Score"]
+margin_left = -46.9072
+margin_top = -10.8349
+margin_right = -36.9072
+margin_bottom = 6.16505
+custom_fonts/font = ExtResource( 1 )
+text = "A"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TeamName3" type="Label" parent="Score"]
+margin_left = -3.0
+margin_top = -11.0
+margin_right = 7.0
+margin_bottom = 6.0
 custom_fonts/font = ExtResource( 1 )
 text = "X"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TeamBPoints" type="Label" parent="PanelMid2/PanelMid"]
-margin_left = 53.7701
-margin_top = 4.84242
-margin_right = 59.7701
-margin_bottom = 14.8424
+[node name="TeamBPoints" type="Label" parent="Score"]
+margin_left = 22.1619
+margin_top = -11.0
+margin_right = 32.1619
+margin_bottom = 6.0
 custom_fonts/font = ExtResource( 1 )
 text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TeamAPoints" type="Label" parent="PanelMid2/PanelMid"]
-margin_left = 13.9624
-margin_top = 4.84242
-margin_right = 19.9624
-margin_bottom = 14.8424
+[node name="TeamAPoints" type="Label" parent="Score"]
+margin_left = -26.6143
+margin_top = -11.0
+margin_right = -16.6143
+margin_bottom = 6.0
 custom_fonts/font = ExtResource( 1 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StaminaSprite" type="Sprite" parent="."]
+position = Vector2( 46.8618, 154.28 )
+texture = ExtResource( 4 )
+
+[node name="Stamina" type="ColorRect" parent="StaminaSprite"]
+margin_left = -35.0
+margin_top = -6.0
+margin_right = 35.0
+margin_bottom = 2.0
+color = Color( 0.87, 0.87, 0.435, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="StaminaSprite"]
+margin_left = -11.0
+margin_top = -6.25055
+margin_right = 14.0
+margin_bottom = 1.74945
+custom_fonts/font = ExtResource( 5 )
+text = " / 100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StaminaValue" type="Label" parent="StaminaSprite"]
+margin_left = -14.5974
+margin_top = -6.0
+margin_right = -10.5974
+margin_bottom = 2.0
+custom_fonts/font = ExtResource( 5 )
 text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
