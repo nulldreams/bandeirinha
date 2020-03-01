@@ -1,6 +1,7 @@
 extends Control
 
 var _player_name = ""
+var _player_team = null
 
 
 # Declare member variables here. Examples:
@@ -21,7 +22,7 @@ func _ready():
 func _on_JoinButton_pressed():
 	if _player_name == "":
 		return
-	Network.connect_to_server(_player_name)
+	Network.connect_to_server(_player_name, _player_team)
 	_load_game()
 
 
@@ -32,8 +33,17 @@ func _on_PlayerName_text_changed(new_text):
 func _on_CreateButton_pressed():
 	if _player_name == "":
 		return
-	Network.create_server(_player_name)
+	Network.create_server(_player_name, _player_team)
 	_load_game()
 
 func _load_game():
 	get_tree().change_scene("res://Scenes/Main.tscn")
+
+
+func _on_Menu_ready():
+	$Teams.add_item("A")
+	$Teams.add_item("B")
+
+
+func _on_Teams_item_selected(id):
+	_player_team = id

@@ -17,12 +17,22 @@ margin_right = 178.332
 margin_bottom = 53.9866
 text = "Lobby"
 
-[node name="Label2" type="Label" parent="."]
+[node name="Name" type="Label" parent="."]
 margin_left = 73.4889
 margin_top = 71.3274
 margin_right = 113.489
 margin_bottom = 85.3274
 text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Team" type="Label" parent="."]
+margin_left = 74.0
+margin_top = 93.0
+margin_right = 114.0
+margin_bottom = 107.0
+text = "Team"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -37,24 +47,33 @@ __meta__ = {
 }
 
 [node name="JoinButton" type="Button" parent="."]
-margin_left = 75.8679
-margin_top = 93.3453
-margin_right = 116.868
-margin_bottom = 113.345
+margin_left = 76.2651
+margin_top = 116.384
+margin_right = 117.265
+margin_bottom = 136.384
 text = "JOIN"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CreateButton" type="Button" parent="."]
-margin_left = 220.056
-margin_top = 92.1536
-margin_right = 278.056
-margin_bottom = 112.154
+margin_left = 221.645
+margin_top = 112.411
+margin_right = 279.645
+margin_bottom = 132.412
 text = "CREATE"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Teams" type="OptionButton" parent="."]
+margin_left = 123.0
+margin_top = 89.0
+margin_right = 169.0
+margin_bottom = 109.0
+text = "A"
+[connection signal="ready" from="." to="." method="_on_Menu_ready"]
 [connection signal="text_changed" from="PlayerName" to="." method="_on_PlayerName_text_changed"]
 [connection signal="pressed" from="JoinButton" to="." method="_on_JoinButton_pressed"]
 [connection signal="pressed" from="CreateButton" to="." method="_on_CreateButton_pressed"]
+[connection signal="item_selected" from="Teams" to="." method="_on_Teams_item_selected"]
