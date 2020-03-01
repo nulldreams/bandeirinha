@@ -16,7 +16,11 @@ _global_script_class_icons={
 [application]
 
 config/name="Bandeirinha"
-run/main_scene="res://Scenes/Main.tscn"
+run/main_scene="res://Scenes/Menu.tscn"
+
+[autoload]
+
+Network="*res://Scenes/Network.gd"
 
 [display]
 

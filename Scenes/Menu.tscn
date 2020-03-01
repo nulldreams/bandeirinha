@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Menu.gd" type="Script" id=1]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 138.332
+margin_top = 39.9866
+margin_right = 178.332
+margin_bottom = 53.9866
+text = "Lobby"
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 73.4889
+margin_top = 71.3274
+margin_right = 113.489
+margin_bottom = 85.3274
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerName" type="LineEdit" parent="."]
+margin_left = 123.0
+margin_top = 62.0
+margin_right = 279.0
+margin_bottom = 86.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JoinButton" type="Button" parent="."]
+margin_left = 75.8679
+margin_top = 93.3453
+margin_right = 116.868
+margin_bottom = 113.345
+text = "JOIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreateButton" type="Button" parent="."]
+margin_left = 220.056
+margin_top = 92.1536
+margin_right = 278.056
+margin_bottom = 112.154
+text = "CREATE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="text_changed" from="PlayerName" to="." method="_on_PlayerName_text_changed"]
+[connection signal="pressed" from="JoinButton" to="." method="_on_JoinButton_pressed"]
+[connection signal="pressed" from="CreateButton" to="." method="_on_CreateButton_pressed"]

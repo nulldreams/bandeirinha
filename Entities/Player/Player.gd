@@ -3,12 +3,17 @@ extends KinematicBody2D
 export var player_speed = 75
 export var type = "player"
 export var player_name = "Igor"
+export var scene_master = false
 
 signal set_player_info
+signal players_collides
 
 enum Team { A, B }
 export(Team) var team = Team.A
-export var main_player = true
+
+enum MoveDirection { UP, DOWN, LEFT, RIGHT, NONE }
+slave var slave_position = Vector2()
+slave var slave_movement = MoveDirection.NONE
 
 var MAX_SPEED = 500
 var ACCELERATION = 2000
@@ -46,20 +51,33 @@ func _input(event):
 			print(target)
 
 func _physics_process(delta):
-	var direction: Vector2
-	direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	if abs(direction.x) == 1 and abs(direction.y) == 1:
-		direction = direction.normalized()
-		
-	var movement = player_speed * direction * delta
-	animates_player(direction)
-	state_machine(direction)
-	previous_state = state
-	if main_player:
+	# check if player is the master
+	if is_network_master():
+		scene_master = true
+		var direction: Vector2
+		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		if abs(direction.x) == 1 and abs(direction.y) == 1:
+			direction = direction.normalized()
+			
+		var movement = player_speed * direction * delta
+		animates_player(direction)
+		state_machine(direction)
+		previous_state = state
 		move_and_collide(movement)
+		rset_unreliable('slave_position', position)
+		rset('slave_movement', direction)
 	else:
-		$Camera2D.current = false
+		animates_player(slave_movement)
+		state_machine(slave_movement)
+		previous_state = state
+		move_and_collide(slave_movement)
+		position = slave_position
+	
+	$Camera2D.current = scene_master
+	
+	if get_tree().is_network_server():
+		Network.update_position(int(name), position)
 
 func animates_player(direction: Vector2):
 	if direction != Vector2.ZERO:
@@ -104,4 +122,9 @@ func freeze_player():
 	$Sprite.modulate = Color(0, 0, 1)
 
 func _on_ColisionArea_body_entered(body):
-	print(body.team != team)
+	if body.team != team:
+		emit_signal("players_collides", body.team)
+
+func init(nickname, start_position):
+	$Nickname.text = nickname
+	global_position = start_position

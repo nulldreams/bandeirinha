@@ -83,10 +83,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="StaminaSprite"]
-margin_left = -11.0
-margin_top = -6.25055
-margin_right = 14.0
-margin_bottom = 1.74945
+margin_left = -8.30198
+margin_top = -5.80089
+margin_right = 16.698
+margin_bottom = 2.19911
 custom_fonts/font = ExtResource( 5 )
 text = " / 100"
 __meta__ = {
@@ -94,10 +94,10 @@ __meta__ = {
 }
 
 [node name="StaminaValue" type="Label" parent="StaminaSprite"]
-margin_left = -14.5974
-margin_top = -6.0
-margin_right = -10.5974
-margin_bottom = 2.0
+margin_left = -11.8994
+margin_top = -5.55034
+margin_right = -7.89938
+margin_bottom = 2.44966
 custom_fonts/font = ExtResource( 5 )
 text = "0"
 __meta__ = {
