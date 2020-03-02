@@ -3,7 +3,6 @@ extends KinematicBody2D
 export var player_speed = 75
 export var type = "player"
 export var player_name = "Igor"
-export var scene_master = false
 
 signal set_player_info
 signal players_collides
@@ -20,12 +19,14 @@ var ACCELERATION = 2000
 var motion = Vector2()
 
 var last_direction = Vector2(1, 0)
+var last_frame
 
 enum {
 	STATE_IDLE,
 	STATE_RUNNING,
 	STATE_DASHING,
-	STATE_FLAG
+	STATE_FLAG,
+	STATE_FREEZE
 }
 
 var flag = false
@@ -43,50 +44,52 @@ func state_machine(direction):
 			idle_player()
 		STATE_RUNNING:
 			move_player(direction)
+		STATE_FREEZE:
+			$FootDust.emitting = false
+			$Sprite.playing = false
+			$Sprite.modulate = Color(0, 0, 1, 1)
 
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		var target = $RayCast2D.get_collider()
-		if target != null:
-			print(target)
+	if event.is_action_pressed("player_dash") and state == STATE_RUNNING:
+		dash_player()
+	elif event.is_action_pressed("freeze"):
+		if state == STATE_FREEZE:
+			$Sprite.modulate = Color(1, 1, 1, 1)
+			state = STATE_IDLE
+		else:
+			state = STATE_FREEZE
+			print(state)
 
+func dash_player():
+	$CollisionShape2D.disabled = true
+	player_speed = 300
+	$DashDuration.start()
+	
 func _physics_process(delta):
-	# check if player is the master
-	if is_network_master():
-		scene_master = true
-		var direction: Vector2
-		direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-		direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-		if abs(direction.x) == 1 and abs(direction.y) == 1:
-			direction = direction.normalized()
-			
-		var movement = player_speed * direction * delta
-		animates_player(direction)
-		state_machine(direction)
-		previous_state = state
+	var direction: Vector2
+	last_frame = $Sprite.frame
+	direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	if abs(direction.x) == 1 and abs(direction.y) == 1:
+		direction = direction.normalized()
+		
+	var movement = player_speed * direction * delta
+	animates_player(direction)
+	state_machine(direction)
+	previous_state = state
+	if state != STATE_FREEZE:
 		move_and_collide(movement)
-		rset_unreliable('slave_position', position)
-		rset('slave_movement', direction)
-	else:
-		animates_player(slave_movement)
-		state_machine(slave_movement)
-		previous_state = state
-		move_and_collide(slave_movement)
-		position = slave_position
-	
-	$Camera2D.current = scene_master
-	
-	if get_tree().is_network_server():
-		Network.update_position(int(name), position)
+	rset_unreliable('slave_position', position)
+	rset('slave_movement', direction)
 
 func animates_player(direction: Vector2):
-	if direction != Vector2.ZERO:
+	if direction != Vector2.ZERO and state != STATE_FREEZE:
 		state = STATE_RUNNING
 	
-	if player_speed >= 300:
+	if player_speed >= 300 and state != STATE_FREEZE:
 		state = STATE_DASHING
 	
-	if direction == Vector2.ZERO and !flag:
+	if direction == Vector2.ZERO and !flag and state != STATE_FREEZE:
 		state = STATE_IDLE
 
 func get_animation_direction(direction: Vector2):
@@ -99,6 +102,7 @@ func get_animation_direction(direction: Vector2):
 		last_direction = Vector2(1, 0)
 		
 func idle_player():
+	$FootDust.emitting = false
 	if carry_flag:
 		$Sprite.play("idle_with_flag")
 	else:
@@ -106,11 +110,13 @@ func idle_player():
 
 func move_player(direction: Vector2):
 	get_animation_direction(direction)
+	$FootDust.emitting = true
 	last_direction = direction
 	if carry_flag:
 		$Sprite.play("run_with_flag")
 	else:
 		$Sprite.play("run")
+	$FootDust.position.x = $Sprite.position.x
 	
 func catch_flag():
 	carry_flag = true
@@ -125,6 +131,17 @@ func _on_ColisionArea_body_entered(body):
 	if body.team != team:
 		emit_signal("players_collides", body.team)
 
-func init(nickname, start_position):
-	$Nickname.text = nickname
-	global_position = start_position
+func _on_GhostTimer_timeout():
+	if state == STATE_DASHING:
+		var ghost_player = preload("res://Entities/Player/Ghost.tscn").instance()
+		get_parent().add_child(ghost_player)
+		ghost_player.position = position
+		ghost_player.z_index = $Sprite.z_index
+		ghost_player.texture = $Sprite.frames.get_frame($Sprite.animation, $Sprite.frame)
+		ghost_player.flip_h = $Sprite.flip_h
+
+
+func _on_DashDuration_timeout():
+	player_speed = 75
+	state = previous_state
+	$CollisionShape2D.disabled = false
