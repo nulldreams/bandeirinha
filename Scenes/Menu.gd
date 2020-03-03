@@ -31,13 +31,14 @@ func _on_PlayerName_text_changed(new_text):
 
 
 func _on_CreateButton_pressed():
-	if _player_name == "":
-		return
-	Network.create_server(_player_name, _player_team)
-	_load_game()
+	get_tree().change_scene("res://Scenes/Game.tscn")
+#	if _player_name == "":
+#		return
+#	Network.create_server(_player_name, _player_team)
+#	_load_game()
 
 func _load_game():
-	get_tree().change_scene("res://Scenes/Main.tscn")
+	get_tree().change_scene("res://Scenes/Game.tscn")
 
 
 func _on_Menu_ready():

@@ -20,19 +20,19 @@
 [ext_resource path="res://Assets/Fonts/equipament.tres" type="DynamicFont" id=18]
 [ext_resource path="res://Assets/foot-dust.png" type="Texture" id=19]
 
-[sub_resource type="Gradient" id=7]
+[sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1 )
 
-[sub_resource type="GradientTexture" id=5]
-gradient = SubResource( 7 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="Curve" id=8]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.252273 ), -4.1986, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=9]
-curve = SubResource( 8 )
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticlesMaterial" id=5]
 emission_shape = 3
 emission_point_count = 1
 flag_disable_z = true
@@ -44,10 +44,10 @@ orbit_velocity_random = 0.0
 angle_random = 1.0
 scale = 0.8
 scale_random = 0.64
-scale_curve = SubResource( 9 )
-color_ramp = SubResource( 5 )
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ) ],
 "loop": true,
@@ -59,21 +59,21 @@ animations = [ {
 "name": "run",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "idle_with_flag",
-"speed": 7.0
-}, {
 "frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 14 ) ],
 "loop": true,
 "name": "run_with_flag",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "idle_with_flag",
+"speed": 7.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 5, 6 )
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=8]
 radius = 11.0
 
 [node name="Player" type="KinematicBody2D"]
@@ -87,18 +87,18 @@ lifetime = 0.65
 explosiveness = 0.55
 randomness = 1.0
 local_coords = false
-process_material = SubResource( 6 )
+process_material = SubResource( 5 )
 texture = ExtResource( 19 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
+frames = SubResource( 6 )
 animation = "idle_with_flag"
-frame = 1
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 8 )
-shape = SubResource( 2 )
+shape = SubResource( 7 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -109,7 +109,7 @@ drag_margin_v_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColisionArea"]
 position = Vector2( 0, 6 )
-shape = SubResource( 3 )
+shape = SubResource( 8 )
 
 [node name="Nickname" type="Label" parent="."]
 margin_left = -22.7271
