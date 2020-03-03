@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # rafact
-var MAX_SPEED = 200
+var MAX_SPEED = 170
 var MAX_DASH_IMPULSE = 20
 var DASH_IMPULSE = 0
 var ACCELERATION = 500
@@ -14,6 +14,7 @@ export var player_name = "Igor"
 
 signal set_player_info
 signal players_collides
+signal player_was_freeze
 
 enum Team { A, B }
 export(Team) var team = Team.A
@@ -23,7 +24,7 @@ slave var slave_position = Vector2()
 slave var slave_movement = MoveDirection.NONE
 
 var last_direction = Vector2(1, 0)
-var last_frame
+var last_frame = 0
 
 enum {
 	STATE_IDLE,
@@ -56,7 +57,7 @@ func _input(event):
 		dash_player()
 	elif event.is_action_pressed("freeze"):
 		if state == STATE_FREEZE:
-			$Sprite.modulate = Color(1, 1, 1, 1)
+			$IceTrail.visible = false
 			state = STATE_IDLE
 		else:
 			state = STATE_FREEZE
@@ -67,6 +68,7 @@ func dash_player():
 	$DashDuration.start()
 	
 func _physics_process(delta):
+	last_frame = $Sprite.frame
 	var axis = Vector2.ZERO 
 	if state != STATE_FREEZE:
 		axis = get_input_axis()
@@ -107,6 +109,8 @@ func idle_player():
 		$Sprite.play("idle_with_flag")
 	else:
 		$Sprite.play("idle")
+		
+	$Sprite.frame = last_frame
 
 func move_player(direction: Vector2):
 	$FootDust.emitting = true
@@ -124,9 +128,17 @@ func drop_flag():
 	carry_flag = false
 
 func freeze_player():
+	$IceTrail.visible = true
+	$IceTrail.position.y = $Sprite.position.y
+	if "_with_flag" in $Sprite.animation:
+		$Sprite.play($Sprite.animation.replace("_with_flag", "_freeze"))
+		
+	$Sprite.play($Sprite.animation + "_freeze")
+	$Sprite.frame = last_frame
 	$FootDust.emitting = false
 	$Sprite.playing = false
-	$Sprite.modulate = Color(0, 0, 1, 1)
+	drop_flag()
+	emit_signal("player_was_freeze", true)
 
 func _on_ColisionArea_body_entered(body):
 	if body.team != team:

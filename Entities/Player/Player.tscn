@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Assets/Player/lizard_f_idle_anim_f3.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Player/lizard_f_idle_anim_f1.png" type="Texture" id=2]
@@ -19,6 +19,22 @@
 [ext_resource path="res://Assets/Player/WithFlag/Run/lizard_f_run_anim_f0-3.png.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Fonts/equipament.tres" type="DynamicFont" id=18]
 [ext_resource path="res://Assets/foot-dust.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Player/Freeze/idle_01.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Player/Freeze/idle_02.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Player/Freeze/idle_03.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Player/Freeze/idle_04.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Player/Freeze/run_02.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Player/Freeze/run_01.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Player/Freeze/run_04.png" type="Texture" id=26]
+[ext_resource path="res://Assets/Player/Freeze/run_03.png" type="Texture" id=27]
+[ext_resource path="res://Entities/Player/IceTrail.gd" type="Script" id=28]
+
+[sub_resource type="Curve" id=10]
+_data = [ Vector2( 0, 0.363636 ), 0.0, -2.6, 0, 0, Vector2( 1, 1 ), 1.4, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0.00662252, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.337255, 0.776471, 0.921569, 1 )
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1 )
@@ -54,6 +70,16 @@ animations = [ {
 "name": "idle",
 "speed": 7.0
 }, {
+"frames": [ ExtResource( 25 ), ExtResource( 24 ), ExtResource( 27 ), ExtResource( 26 ) ],
+"loop": true,
+"name": "run_freeze",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "idle_freeze",
+"speed": 7.0
+}, {
 "frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "run",
@@ -79,6 +105,16 @@ radius = 11.0
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 9 )
 
+[node name="IceTrail" type="Line2D" parent="."]
+visible = false
+show_behind_parent = true
+width = 2.0
+width_curve = SubResource( 10 )
+gradient = SubResource( 9 )
+script = ExtResource( 28 )
+targetPath = NodePath("../Sprite")
+trailLength = 8
+
 [node name="FootDust" type="Particles2D" parent="."]
 position = Vector2( -15, 12 )
 rotation = -1.5708
@@ -92,8 +128,8 @@ texture = ExtResource( 19 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
-animation = "idle_with_flag"
-frame = 3
+animation = "idle"
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
