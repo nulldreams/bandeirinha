@@ -12,7 +12,7 @@ func _physics_process(delta):
 	position += flag_position
 
 func _on_Flag_body_entered(body):
-	if body.type == "player" and body.team != team:
+	if body.name != "Walls" and body.type == "player" and body.team != team:
 		$".".visible = false
 		body.catch_flag()
 

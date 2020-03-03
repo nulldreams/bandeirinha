@@ -130,19 +130,21 @@ func drop_flag():
 func freeze_player():
 	$IceTrail.visible = true
 	$IceTrail.position.y = $Sprite.position.y
-	if "_with_flag" in $Sprite.animation:
-		$Sprite.play($Sprite.animation.replace("_with_flag", "_freeze"))
-		
-	$Sprite.play($Sprite.animation + "_freeze")
+#	if "_with_flag" in $Sprite.animation:
+#		$Sprite.play($Sprite.animation.replace("_with_flag", "_freeze"))
+#
+#	$Sprite.play($Sprite.animation + "_freeze")
+	$Sprite.play("idle_freeze")
 	$Sprite.frame = last_frame
 	$FootDust.emitting = false
-	$Sprite.playing = false
+#	$Sprite.playing = false
 	drop_flag()
 	emit_signal("player_was_freeze", true)
 
 func _on_ColisionArea_body_entered(body):
-	if body.team != team:
-		emit_signal("players_collides", body.team)
+	pass
+#	if body.team != team:
+#		emit_signal("players_collides", body.team)
 
 func _on_GhostTimer_timeout():
 	if state == STATE_DASHING:
