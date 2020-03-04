@@ -14,6 +14,5 @@ func _physics_process(delta):
 	point = target.global_position
 	point.y += 13
 	add_point(point)
-	print(get_point_count(), " ", trailLength)
 	while get_point_count() > trailLength:
 		remove_point(0)

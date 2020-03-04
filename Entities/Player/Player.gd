@@ -25,13 +25,15 @@ slave var slave_movement = MoveDirection.NONE
 
 var last_direction = Vector2(1, 0)
 var last_frame = 0
+var shadow_before_jump = Vector2.ZERO
 
 enum {
 	STATE_IDLE,
 	STATE_RUNNING,
 	STATE_DASHING,
 	STATE_FLAG,
-	STATE_FREEZE
+	STATE_FREEZE,
+	STATE_JUMPING
 }
 
 var flag = false
@@ -40,8 +42,18 @@ var carry_flag = false
 var state = STATE_IDLE
 var previous_state = state
 
+# y jump
+var z_speed = 5
+var gravity = 1
+var z_floor = 0
+var z = 0
+var jump_height = 10
+var jumping = false
+# y jump
+
 func _ready():
 	emit_signal("set_player_info", player_name, team)
+	$Shadow.play("shadowing")
 
 func state_machine(direction):
 	match state:
@@ -51,9 +63,14 @@ func state_machine(direction):
 			move_player(direction)
 		STATE_FREEZE:
 			freeze_player()
+		STATE_JUMPING:
+			jumping()
 
 func _input(event):
-	if event.is_action_pressed("player_dash") and state == STATE_RUNNING:
+	if event.is_action_pressed("jump") and state != STATE_FREEZE:
+		$JumpTimer.start()
+		jumping = true
+	elif event.is_action_pressed("player_dash") and state == STATE_RUNNING:
 		dash_player()
 	elif event.is_action_pressed("freeze"):
 		if state == STATE_FREEZE:
@@ -61,13 +78,37 @@ func _input(event):
 			state = STATE_IDLE
 		else:
 			state = STATE_FREEZE
+#	z_index = 0
 
 func dash_player():
 	$CollisionShape2D.disabled = true
 	DASH_IMPULSE = MAX_DASH_IMPULSE
 	$DashDuration.start()
 	
-func _physics_process(delta):
+func jumping():
+	$CollisionShape2D.disabled = true
+	if carry_flag:
+		$Sprite.play("jumping_with_flag")
+		$Shadow.play("shadow_jumping")
+	else:
+		$Sprite.play("jumping")
+		$Shadow.play("shadow_jumping")
+
+func _on_JumpTimer_timeout():
+	$CollisionShape2D.disabled = false
+	$Shadow.play("shadowing")
+	jumping = false
+	state = STATE_RUNNING
+	
+func _physics_process(delta):	
+	if jumping and z_index <= jump_height:
+		z_index += z_speed
+		position.y -= z_speed
+	elif !jumping and z_index > z_floor:
+		position.y += z_speed
+		z_index -= z_speed
+	$Shadow.position.y = $Sprite.position.y + (z_index + 13)
+	
 	last_frame = $Sprite.frame
 	var axis = Vector2.ZERO 
 	if state != STATE_FREEZE:
@@ -85,13 +126,13 @@ func _physics_process(delta):
 	motion = move_and_slide(motion)
 
 func animates_player(direction: Vector2):
-	if direction != Vector2.ZERO and state != STATE_FREEZE:
+	if jumping:
+		state = STATE_JUMPING
+	if direction != Vector2.ZERO and state != STATE_FREEZE and !jumping:
 		state = STATE_RUNNING
-	
-	if DASH_IMPULSE > 0 and state != STATE_FREEZE:
+	if DASH_IMPULSE > 0 and state != STATE_FREEZE and !jumping:
 		state = STATE_DASHING
-	
-	if direction == Vector2.ZERO and !flag and state != STATE_FREEZE:
+	if direction == Vector2.ZERO and !flag and state != STATE_FREEZE and !jumping:
 		state = STATE_IDLE
 
 func get_animation_direction(direction: Vector2):
