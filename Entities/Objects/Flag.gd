@@ -17,9 +17,9 @@ func _on_Flag_body_entered(body):
 		body.catch_flag()
 
 func _ready():
-	var camp_A = get_tree().get_root().get_node("Main/World/TileMap/Camp")
-	var camp_B = get_tree().get_root().get_node("Main/World/TileMap/Camp2")
-	var player = get_tree().get_root().get_node("Main/World/Player")
+	var camp_A = get_tree().get_root().get_node("Main/World/Camps/Camp")
+	var camp_B = get_tree().get_root().get_node("Main/World/Camps/Camp2")
+	var player = get_tree().get_root().get_node("Main/World/Objects/Player")
 	
 	player.connect("player_was_freeze", self, "reset_flag_when_freeze")
 	camp_A.connect("team_make_a_point", self, "reset_flag")

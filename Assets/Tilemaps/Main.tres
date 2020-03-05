@@ -1,10 +1,11 @@
-[gd_resource type="TileSet" load_steps=28 format=2]
+[gd_resource type="TileSet" load_steps=29 format=2]
 
 [ext_resource path="res://Assets/grass.png" type="Texture" id=1]
 [ext_resource path="res://Assets/tilemap.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Tilemaps/0x72_DungeonTilesetII_v1.1.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Tilemaps/islands.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Tilemaps/terrain.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Tilemaps/camp.png" type="Texture" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 4.35208, 32.0653, 0.475952, 32.0653, 0.475952, 0.248734, 4.35208, 0.248734 )
@@ -39,37 +40,37 @@ points = PoolVector2Array( 16.0234, 16.0574, 11.2006, 16.0574, 11.2006, 0.13121,
 [sub_resource type="ConvexPolygonShape2D" id=11]
 points = PoolVector2Array( 15.9112, 15.977, 0.0971222, 15.977, 0.0971222, 7.22878, 15.9112, 7.22878 )
 
-[sub_resource type="ConvexPolygonShape2D" id=13]
+[sub_resource type="ConvexPolygonShape2D" id=12]
 points = PoolVector2Array( 14.0691, 0.134445, 15.9622, 0.134445, 15.9622, 8.84259, 14.0691, 8.84259 )
 
-[sub_resource type="ConvexPolygonShape2D" id=14]
+[sub_resource type="ConvexPolygonShape2D" id=13]
 points = PoolVector2Array( 15.9181, 8.95076, 0.0703487, 8.95076, 0.0703487, 6.84134, 15.9181, 6.84134 )
 
-[sub_resource type="ConvexPolygonShape2D" id=15]
+[sub_resource type="ConvexPolygonShape2D" id=14]
 points = PoolVector2Array( 15.874, 8.95076, 0.026268, 8.95076, 0.026268, 6.94952, 15.874, 6.94952 )
 
-[sub_resource type="ConvexPolygonShape2D" id=16]
+[sub_resource type="ConvexPolygonShape2D" id=15]
 points = PoolVector2Array( 2.03753, 8.95076, -0.017807, 8.95076, -0.017807, 0.0803566, 2.03753, 0.0803566 )
 
-[sub_resource type="ConvexPolygonShape2D" id=17]
+[sub_resource type="ConvexPolygonShape2D" id=16]
 points = PoolVector2Array( 1.98344, 15.9789, -0.0178108, 15.9789, -0.0178108, 0.0230217, 1.98344, 0.0230217 )
 
-[sub_resource type="ConvexPolygonShape2D" id=18]
+[sub_resource type="ConvexPolygonShape2D" id=17]
 points = PoolVector2Array( 1.82117, 16.1244, 0.0362778, 16.1244, 0.0362778, 9.03893, 1.82117, 9.03893 )
 
-[sub_resource type="ConvexPolygonShape2D" id=19]
+[sub_resource type="ConvexPolygonShape2D" id=18]
 points = PoolVector2Array( 15.9281, 10.7157, 0.134445, 10.7157, 0.134445, 8.06535, 15.9281, 8.06535 )
 
-[sub_resource type="ConvexPolygonShape2D" id=20]
+[sub_resource type="ConvexPolygonShape2D" id=19]
 points = PoolVector2Array( 0.0162601, 8.06535, 16.0263, 8.06535, 16.0263, 10.6075, 0.0162601, 10.6075 )
 
-[sub_resource type="ConvexPolygonShape2D" id=21]
+[sub_resource type="ConvexPolygonShape2D" id=20]
 points = PoolVector2Array( 14.0691, 8.98484, 15.9622, 8.98484, 15.9622, 15.9622, 14.0691, 15.9622 )
 
-[sub_resource type="ConvexPolygonShape2D" id=22]
+[sub_resource type="ConvexPolygonShape2D" id=21]
 points = PoolVector2Array( 13.9609, 0.0703487, 15.9081, 0.0703487, 15.9081, 16.0263, 13.9609, 16.0263 )
 
-[sub_resource type="GDScript" id=12]
+[sub_resource type="GDScript" id=22]
 
 [resource]
 0/name = "grass"
@@ -246,62 +247,79 @@ points = PoolVector2Array( 13.9609, 0.0703487, 15.9081, 0.0703487, 15.9081, 16.0
 "autotile_coord": Vector2( 0, 2 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 13 ),
+"shape": SubResource( 12 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 1, 2 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 14 ),
+"shape": SubResource( 13 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 2, 2 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 15 ),
+"shape": SubResource( 14 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 3, 2 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 16 ),
+"shape": SubResource( 15 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 3, 1 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 17 ),
+"shape": SubResource( 16 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 3, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 18 ),
+"shape": SubResource( 17 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 2, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 19 ),
+"shape": SubResource( 18 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 1, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 20 ),
+"shape": SubResource( 19 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 21 ),
+"shape": SubResource( 20 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 }, {
 "autotile_coord": Vector2( 0, 1 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 22 ),
+"shape": SubResource( 21 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 6/z_index = 0
-script = SubResource( 12 )
+7/name = "Camp"
+7/texture = ExtResource( 6 )
+7/tex_offset = Vector2( 0, 0 )
+7/modulate = Color( 1, 1, 1, 1 )
+7/region = Rect2( 0, 0, 96, 96 )
+7/tile_mode = 2
+7/autotile/icon_coordinate = Vector2( 0, 0 )
+7/autotile/tile_size = Vector2( 16, 16 )
+7/autotile/spacing = 0
+7/autotile/occluder_map = [  ]
+7/autotile/navpoly_map = [  ]
+7/autotile/priority_map = [  ]
+7/autotile/z_index_map = [  ]
+7/occluder_offset = Vector2( 0, 0 )
+7/navigation_offset = Vector2( 0, 0 )
+7/shapes = [  ]
+7/z_index = 0
+script = SubResource( 22 )
