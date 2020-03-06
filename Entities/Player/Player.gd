@@ -68,7 +68,7 @@ func state_machine(direction):
 			jumping()
 
 func _input(event):
-	if event.is_action_pressed("jump") and state != STATE_FREEZE:
+	if event.is_action_pressed("jump") and state != STATE_FREEZE and state != STATE_JUMPING:
 		$JumpTimer.start()
 		jumping = true
 	elif event.is_action_pressed("player_dash") and state == STATE_RUNNING:
@@ -150,6 +150,7 @@ func get_animation_direction(direction: Vector2):
 		
 func idle_player():
 	$FootDust.emitting = false
+	$Sprite.scale.y = 1
 	if carry_flag:
 		$Sprite.play("idle_with_flag")
 	else:
@@ -165,7 +166,12 @@ func move_player(direction: Vector2):
 	else:
 		$Sprite.play("run")
 	$FootDust.position.x = $Sprite.position.x
-	
+
+func _rand(_min, _max):
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	return rng.randf_range(_min, _max)
+
 func catch_flag():
 	carry_flag = true
 

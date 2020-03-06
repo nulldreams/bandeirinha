@@ -178,7 +178,6 @@ one_shot = true
 speed_scale = 1.2
 explosiveness = 0.65
 randomness = 1.0
-visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = false
 process_material = SubResource( 7 )
 texture = ExtResource( 19 )
