@@ -49,6 +49,7 @@ var z_floor = 0
 var z = 0
 var jump_height = 10
 var jumping = false
+var landed = true
 # y jump
 
 func _ready():
@@ -97,10 +98,12 @@ func jumping():
 func _on_JumpTimer_timeout():
 	$CollisionShape2D.disabled = false
 	$Shadow.play("shadowing")
+	$LandingDust.emitting = true
+	$Camera2D.start_shaking()
 	jumping = false
 	state = STATE_RUNNING
 	
-func _physics_process(delta):	
+func _physics_process(delta):
 	if jumping and z_index <= jump_height:
 		z_index += z_speed
 		position.y -= z_speed
@@ -108,6 +111,7 @@ func _physics_process(delta):
 		position.y += z_speed
 		z_index -= z_speed
 	$Shadow.position.y = $Sprite.position.y + (z_index + 13)
+	$LandingDust.position = $Shadow.position
 	
 	last_frame = $Sprite.frame
 	var axis = Vector2.ZERO 
@@ -177,7 +181,7 @@ func freeze_player():
 #	$Sprite.play($Sprite.animation + "_freeze")
 	$Sprite.play("idle_freeze")
 	$Sprite.frame = last_frame
-	$FootDust.emitting = false
+	$LandingDust.emitting = false
 #	$Sprite.playing = false
 	drop_flag()
 	emit_signal("player_was_freeze", true)
@@ -195,7 +199,6 @@ func _on_GhostTimer_timeout():
 		ghost_player.z_index = $Sprite.z_index
 		ghost_player.texture = $Sprite.frames.get_frame($Sprite.animation, $Sprite.frame)
 		ghost_player.flip_h = $Sprite.flip_h
-
 
 func _on_DashDuration_timeout():
 	DASH_IMPULSE = 0

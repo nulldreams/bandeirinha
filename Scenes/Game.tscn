@@ -127,7 +127,7 @@ position = Vector2( 502, 96 )
 scale = Vector2( 2.14839, 2.14839 )
 
 [node name="Player" parent="World/Objects" instance=ExtResource( 1 )]
-position = Vector2( 263, 21 )
+position = Vector2( 191.552, 64.8939 )
 
 [node name="FlagB" parent="World/Objects" instance=ExtResource( 3 )]
 position = Vector2( 447, 71 )
