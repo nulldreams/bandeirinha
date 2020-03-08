@@ -11,6 +11,7 @@ var motion = Vector2.ZERO
 export var player_speed = 75
 export var type = "player"
 export var player_name = "Igor"
+export var player_id = ""
 
 signal set_player_info
 signal players_collides
@@ -68,7 +69,6 @@ func state_machine(direction):
 			jumping()
 
 func _input(event):
-	WebSocket.connect_to_server()
 	if event.is_action_pressed("jump") and state != STATE_FREEZE and state != STATE_JUMPING:
 		$JumpTimer.start()
 		jumping = true
@@ -105,6 +105,8 @@ func _on_JumpTimer_timeout():
 	state = STATE_RUNNING
 	
 func _physics_process(delta):
+	get_tree().get_root().get_node("Main/World/TESTE").text = "Players: " + str(WebSocket.players)
+
 	if jumping and z_index <= jump_height:
 		z_index += z_speed
 		position.y -= z_speed
@@ -129,6 +131,8 @@ func _physics_process(delta):
 	state_machine(motion)
 	previous_state = state
 	motion = move_and_slide(motion)
+	
+	WebSocket.update_player_position(WebSocket.room_id, player_id, position)
 
 func animates_player(direction: Vector2):
 	if jumping:
@@ -232,3 +236,7 @@ func apply_movement(acceleration):
 	else:
 		motion = motion.clamped(MAX_SPEED)
 # REFACT MOVEMENT
+func init(nickname, start_position, _player_id):
+	player_id = _player_id
+	$Nickname.text = nickname
+	global_position = Vector2(start_position.x, start_position.y)

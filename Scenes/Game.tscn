@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Entities/Objects/Flag.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Camp.gd" type="Script" id=4]
 [ext_resource path="res://Entities/Objects/tree/Tree.tscn" type="PackedScene" id=5]
@@ -126,14 +125,20 @@ flip_h = true
 position = Vector2( 502, 96 )
 scale = Vector2( 2.14839, 2.14839 )
 
-[node name="Player" parent="World/Objects" instance=ExtResource( 1 )]
-position = Vector2( 191.552, 64.8939 )
-
 [node name="FlagB" parent="World/Objects" instance=ExtResource( 3 )]
 position = Vector2( 447, 71 )
 team = 1
 
 [node name="FlagA" parent="World/Objects" instance=ExtResource( 3 )]
 position = Vector2( 80, 70 )
+
+[node name="TESTE" type="RichTextLabel" parent="World"]
+margin_left = 128.0
+margin_top = 6.0
+margin_right = 737.0
+margin_bottom = 370.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="body_entered" from="World/Camps/Camp" to="World/Camps/Camp" method="_on_Camp_body_entered"]
 [connection signal="body_entered" from="World/Camps/Camp2" to="World/Camps/Camp2" method="_on_Camp2_body_entered"]
