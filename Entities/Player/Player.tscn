@@ -109,10 +109,20 @@ animations = [ {
 "name": "jumping_with_flag",
 "speed": 7.0
 }, {
+"frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "run_with_flag",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 25 ), ExtResource( 24 ), ExtResource( 27 ), ExtResource( 26 ) ],
 "loop": true,
 "name": "run_freeze",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "idle_with_flag",
+"speed": 7.0
 }, {
 "frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ) ],
 "loop": true,
@@ -122,16 +132,6 @@ animations = [ {
 "frames": [ ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
 "loop": true,
 "name": "idle_freeze",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "run_with_flag",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "idle_with_flag",
 "speed": 7.0
 } ]
 
@@ -186,12 +186,13 @@ texture = ExtResource( 19 )
 position = Vector2( 0, 13 )
 frames = SubResource( 8 )
 animation = "shadowing"
-frame = 3
+frame = 1
 playing = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 9 )
 animation = "idle"
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

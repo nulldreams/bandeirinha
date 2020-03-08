@@ -42,6 +42,7 @@ margin_left = 123.0
 margin_top = 62.0
 margin_right = 279.0
 margin_bottom = 86.0
+text = "IGAO"
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -11,7 +11,7 @@ var _player_team = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	WebSocket.connect_to_server()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +31,8 @@ func _on_PlayerName_text_changed(new_text):
 
 
 func _on_CreateButton_pressed():
-	get_tree().change_scene("res://Scenes/Game.tscn")
+	WebSocket.create_server_room(_player_name)
+#	get_tree().change_scene("res://Scenes/Game.tscn")
 #	if _player_name == "":
 #		return
 #	Network.create_server(_player_name, _player_team)

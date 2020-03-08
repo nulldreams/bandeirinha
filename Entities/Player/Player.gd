@@ -68,6 +68,7 @@ func state_machine(direction):
 			jumping()
 
 func _input(event):
+	WebSocket.connect_to_server()
 	if event.is_action_pressed("jump") and state != STATE_FREEZE and state != STATE_JUMPING:
 		$JumpTimer.start()
 		jumping = true
