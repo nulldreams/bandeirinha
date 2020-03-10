@@ -5,6 +5,7 @@ var connected = false
 var SERVER_URL = "ws://localhost:8080"
 export var room_id = ""
 export var players = {}
+export var master = ""
 
 func connect_to_server():
 	ws = WebSocketClient.new()
@@ -21,10 +22,7 @@ func create_server_room(player_name):
 		"type": "create_room",
 		"payload": {
 			"name": player_name,
-			"state": {
-				"last": "STATE_IDLE",
-				"actual": "STATE_IDLE"
-			},
+			"state": 0,
 			"position": Vector2(191, 64),
 			"chickens_captured": 0
 		}
@@ -38,10 +36,7 @@ func connect_to_server_room(player_name, room_id):
 		"payload": {
 			"room_id": room_id,
 			"name": player_name,
-			"state": {
-				"last": "STATE_IDLE",
-				"actual": "STATE_IDLE"
-			},
+			"state": 0,
 			"position": Vector2(180, 80),
 			"chickens_captured": 0
 		}
@@ -54,30 +49,35 @@ func retrieve_player_info(room_id, player_id):
 		"type": "player_info",
 		"payload": {
 			"room_id": room_id,
-			"player_id": player_id
+			"player": {
+				"id": player_id
+			}
 		}
 	}
 	
 	send_to_server(retrieve_player_info_payload)
-
-func update_player_position(room_id, player_id, player_position):
-	var update_player_position_payload = {
-		"type": "update_player_position",
+	
+func update_player_info(room_id, player_id, player):
+	var update_player_info_payload = {
+		"type": "update_player_info",
 		"payload": {
 			"room_id": room_id,
-			"player_id": player_id,
-			"player_position": player_position
+			"player": {
+				"id": player_id,
+				"position": player.position,
+				"state": player.state
+			}
 		}
 	}
 	
-	send_to_server(update_player_position_payload)
+	send_to_server(update_player_info_payload)
 
 func send_to_server(variable):
 	if ws.get_peer(1).is_connected_to_host():
 		ws.get_peer(1).put_var(variable)
-		if ws.get_peer(1).get_available_packet_count() > 0 :
-			var test = ws.get_peer(1).get_var()
-			print('recieve %s' % test)
+#		if ws.get_peer(1).get_available_packet_count() > 0 :
+#			var test = ws.get_peer(1).get_var()
+#			print('recieve %s' % test)
 
 func _connection_established(protocol):
 	print("Connection established with protocol: ", protocol)
@@ -105,10 +105,13 @@ func handle_server_responses(response):
 		if response.type == "create_room_response":
 			room_id = response.room_id
 			players[response.player_info.id] = response.player_info
+			master = response.player_info.id
 			initiate_player(players[response.player_info.id])
 		if response.type == "connect_to_room_response":
 			room_id = response.room_id
 			players[response.player_info.id] = response.player_info
+			print("PORRA", " ", master)
+			master = response.player_info.id
 			initiate_player(players[response.player_info.id])
 		if response.type == "players_info_response":
 			players = response.players

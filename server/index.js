@@ -17,7 +17,7 @@ const types = {
   CREATE_ROOM: 'create_room',
   CONNECT_TO_ROOM: 'connect_to_room',
   PLAYERS_INFO: 'players_info',
-  UPDATE_PLAYER_POSITION: 'update_player_position'
+  UPDATE_PLAYER_INFO: 'update_player_info'
 }
 const rooms = []
 
@@ -39,14 +39,15 @@ const handlePayload = ({ type, payload }) => {
   if (type === types.CREATE_ROOM) return createRoomHandler(payload)
   if (type === types.CONNECT_TO_ROOM) return connectToRoomHandler(payload)
   if (type === types.PLAYERS_INFO) return playersInfoHandler(payload)
-  if (type === types.UPDATE_PLAYER_POSITION) return updatePlayerPositionHandler(payload)
+  if (type === types.UPDATE_PLAYER_INFO) return updatePlayerInfonHandler(payload)
 }
 
-const updatePlayerPositionHandler = (payload) => {
+const updatePlayerInfonHandler = (payload) => {
   const room = _.find(rooms, { id: payload.room_id })
   const roomIndex = _.findIndex(rooms, { id: payload.room_id })
-  console.log(room.players[payload.player_id])
-  room.players[payload.player_id].position = payload.player_position
+  
+  room.players[payload.player.id].position = payload.player.position
+  room.players[payload.player.id].state = payload.player.state
   rooms[roomIndex] = room
 }
 
@@ -64,6 +65,7 @@ const connectToRoomHandler = (payload) => {
     player_id,
     ...player
   }
+  console.log(room.players[player_id])
   return { type: 'connect_to_room_response', room_id: room.id, player_info: player }
 }
 

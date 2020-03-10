@@ -106,33 +106,36 @@ func _on_JumpTimer_timeout():
 	
 func _physics_process(delta):
 	get_tree().get_root().get_node("Main/World/TESTE").text = "Players: " + str(WebSocket.players)
-
-	if jumping and z_index <= jump_height:
-		z_index += z_speed
-		position.y -= z_speed
-	elif !jumping and z_index > z_floor:
-		position.y += z_speed
-		z_index -= z_speed
-	$Shadow.position.y = $Sprite.position.y + (z_index + 13)
-	$LandingDust.position = $Shadow.position
-	
-	last_frame = $Sprite.frame
-	var axis = Vector2.ZERO 
-	if state != STATE_FREEZE:
-		axis = get_input_axis()
+	if WebSocket.master == player_id:
+		if jumping and z_index <= jump_height:
+			z_index += z_speed
+			position.y -= z_speed
+		elif !jumping and z_index > z_floor:
+			position.y += z_speed
+			z_index -= z_speed
+		$Shadow.position.y = $Sprite.position.y + (z_index + 13)
+		$LandingDust.position = $Shadow.position
 		
-	get_animation_direction(axis)
-	if axis == Vector2.ZERO:
-		apply_friction(ACCELERATION * delta)
-	else:
-		apply_movement(axis * ACCELERATION * delta)
+		last_frame = $Sprite.frame
+		var axis = Vector2.ZERO 
+		if state != STATE_FREEZE:
+			axis = get_input_axis()
 			
-	animates_player(motion)
-	state_machine(motion)
-	previous_state = state
-	motion = move_and_slide(motion)
-	
-	WebSocket.update_player_position(WebSocket.room_id, player_id, position)
+		get_animation_direction(axis)
+		if axis == Vector2.ZERO:
+			apply_friction(ACCELERATION * delta)
+		else:
+			apply_movement(axis * ACCELERATION * delta)
+				
+		animates_player(motion)
+		state_machine(motion)
+		previous_state = state
+		motion = move_and_slide(motion)
+		
+		WebSocket.update_player_info(WebSocket.room_id, player_id, {
+			"position": position,
+			"state": state
+		})
 
 func animates_player(direction: Vector2):
 	if jumping:
@@ -238,5 +241,7 @@ func apply_movement(acceleration):
 # REFACT MOVEMENT
 func init(nickname, start_position, _player_id):
 	player_id = _player_id
-	$Nickname.text = nickname
+	$Nickname.text = "ID: " + _player_id + " | Master: " + WebSocket.master
 	global_position = Vector2(start_position.x, start_position.y)
+	if WebSocket.master == _player_id:
+		$Camera2D.current = true
