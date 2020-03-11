@@ -66,7 +66,7 @@ const connectToRoomHandler = (payload) => {
     ...player
   }
   console.log(room.players[player_id])
-  return { type: 'connect_to_room_response', room_id: room.id, player_info: player }
+  return { type: 'connect_to_room_response', room_id: room.id, player_info: player, players: room.players }
 }
 
 const createRoomHandler = (player) => {

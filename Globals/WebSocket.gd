@@ -110,7 +110,7 @@ func handle_server_responses(response):
 		if response.type == "connect_to_room_response":
 			room_id = response.room_id
 			players[response.player_info.id] = response.player_info
-			print("PORRA", " ", master)
+			players = response.players
 			master = response.player_info.id
 			initiate_player(players[response.player_info.id])
 		if response.type == "players_info_response":
