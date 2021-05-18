@@ -135,5 +135,6 @@ team = 1
 
 [node name="FlagA" parent="World/Objects" instance=ExtResource( 3 )]
 position = Vector2( 80, 70 )
+
 [connection signal="body_entered" from="World/Camps/Camp" to="World/Camps/Camp" method="_on_Camp_body_entered"]
 [connection signal="body_entered" from="World/Camps/Camp2" to="World/Camps/Camp2" method="_on_Camp2_body_entered"]

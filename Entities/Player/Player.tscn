@@ -104,11 +104,6 @@ animations = [ {
 "name": "jumping",
 "speed": 7.0
 }, {
-"frames": [ ExtResource( 33 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 30 ) ],
-"loop": true,
-"name": "jumping_with_flag",
-"speed": 7.0
-}, {
 "frames": [ ExtResource( 25 ), ExtResource( 24 ), ExtResource( 27 ), ExtResource( 26 ) ],
 "loop": true,
 "name": "run_freeze",
@@ -132,6 +127,11 @@ animations = [ {
 "frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "idle_with_flag",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 33 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 30 ) ],
+"loop": true,
+"name": "jumping_with_flag",
 "speed": 7.0
 } ]
 
@@ -186,12 +186,13 @@ texture = ExtResource( 19 )
 position = Vector2( 0, 13 )
 frames = SubResource( 8 )
 animation = "shadowing"
-frame = 3
+frame = 1
 playing = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 9 )
 animation = "idle"
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -238,6 +239,7 @@ one_shot = true
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
+
 [connection signal="timeout" from="Camera2D/ShakingTimer" to="Camera2D" method="_on_ShakingTimer_timeout"]
 [connection signal="body_entered" from="ColisionArea" to="." method="_on_ColisionArea_body_entered"]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]
