@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Assets/Player/lizard_f_idle_anim_f3.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Player/lizard_f_idle_anim_f1.png" type="Texture" id=2]
@@ -45,25 +45,19 @@
 [ext_resource path="res://Assets/Player/Shadow/shadow_jump_03.png" type="Texture" id=43]
 [ext_resource path="res://Entities/Player/Camera2D.gd" type="Script" id=44]
 
-[sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 0.772727 ), 0.0, 0.0, 0, 0, Vector2( 0.252747, 0.645455 ), 0.0, 0.0, 0, 0, Vector2( 0.923077, 0.790909 ), 0.0, 0.0, 0, 0, Vector2( 0.994506, 0.209091 ), 0.0, 0.0, 0, 0 ]
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0, 0.0310078 )
 
-[sub_resource type="Gradient" id=2]
-colors = PoolColorArray( 0.498039, 0.937255, 0.988235, 0.231373, 0.498039, 0.937255, 0.988235, 0.678431 )
+[sub_resource type="GradientTexture" id=1]
+gradient = SubResource( 9 )
 
-[sub_resource type="Gradient" id=3]
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1 )
-
-[sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 3 )
-
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.252273 ), -4.1986, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=6]
-curve = SubResource( 5 )
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 2
 emission_box_extents = Vector3( 1, 7, 1 )
 flag_disable_z = true
@@ -76,23 +70,23 @@ orbit_velocity_random = 0.0
 angle_random = 1.0
 scale = 0.8
 scale_random = 0.64
-scale_curve = SubResource( 6 )
-color_ramp = SubResource( 4 )
+scale_curve = SubResource( 3 )
+color_ramp = SubResource( 1 )
 
-[sub_resource type="SpriteFrames" id=8]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
-"frames": [ ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 40 ) ],
-"loop": false,
-"name": "shadow_jumping",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 38 ), ExtResource( 37 ), ExtResource( 39 ), ExtResource( 36 ) ],
 "loop": true,
 "name": "shadowing",
 "speed": 7.0
+}, {
+"frames": [ ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 40 ) ],
+"loop": false,
+"name": "shadow_jumping",
+"speed": 10.0
 } ]
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ) ],
 "loop": true,
@@ -104,19 +98,9 @@ animations = [ {
 "name": "jumping",
 "speed": 7.0
 }, {
-"frames": [ ExtResource( 25 ), ExtResource( 24 ), ExtResource( 27 ), ExtResource( 26 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 10 ) ],
 "loop": true,
-"name": "run_freeze",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "run",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
-"loop": true,
-"name": "idle_freeze",
+"name": "idle_with_flag",
 "speed": 7.0
 }, {
 "frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 14 ) ],
@@ -124,21 +108,31 @@ animations = [ {
 "name": "run_with_flag",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 25 ), ExtResource( 24 ), ExtResource( 27 ), ExtResource( 26 ) ],
 "loop": true,
-"name": "idle_with_flag",
+"name": "run_freeze",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "idle_freeze",
 "speed": 7.0
 }, {
 "frames": [ ExtResource( 33 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 30 ) ],
 "loop": true,
 "name": "jumping_with_flag",
 "speed": 7.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 5, 4.33412 )
 
-[sub_resource type="CircleShape2D" id=11]
+[sub_resource type="CircleShape2D" id=8]
 radius = 11.0
 
 [node name="Player" type="KinematicBody2D"]
@@ -149,8 +143,6 @@ visible = false
 show_behind_parent = true
 points = PoolVector2Array( 53, 19 )
 width = 4.0
-width_curve = SubResource( 1 )
-gradient = SubResource( 2 )
 texture_mode = 2
 script = ExtResource( 28 )
 targetPath = NodePath("../Sprite")
@@ -164,7 +156,7 @@ lifetime = 0.65
 explosiveness = 0.55
 randomness = 1.0
 local_coords = false
-process_material = SubResource( 7 )
+process_material = SubResource( 4 )
 texture = ExtResource( 19 )
 
 [node name="LandingDust" type="Particles2D" parent="."]
@@ -179,25 +171,24 @@ speed_scale = 1.2
 explosiveness = 0.65
 randomness = 1.0
 local_coords = false
-process_material = SubResource( 7 )
+process_material = SubResource( 4 )
 texture = ExtResource( 19 )
 
 [node name="Shadow" type="AnimatedSprite" parent="."]
 position = Vector2( 0, 13 )
-frames = SubResource( 8 )
+frames = SubResource( 5 )
 animation = "shadowing"
-frame = 1
 playing = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 9 )
+frames = SubResource( 6 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 9.36348 )
-shape = SubResource( 10 )
+shape = SubResource( 7 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -214,7 +205,7 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ColisionArea"]
 position = Vector2( 0, 6 )
-shape = SubResource( 11 )
+shape = SubResource( 8 )
 
 [node name="Nickname" type="Label" parent="."]
 margin_left = -22.7271

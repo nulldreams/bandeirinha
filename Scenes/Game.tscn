@@ -136,5 +136,18 @@ team = 1
 [node name="FlagA" parent="World/Objects" instance=ExtResource( 3 )]
 position = Vector2( 80, 70 )
 
+[node name="RichTextLabel" type="RichTextLabel" parent="World"]
+margin_left = 289.0
+margin_top = 105.0
+margin_right = 407.0
+margin_bottom = 152.0
+tab_size = 2
+text = "Dash: \"D\"
+Jump: \"Space\"
+Move: Arrows"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="body_entered" from="World/Camps/Camp" to="World/Camps/Camp" method="_on_Camp_body_entered"]
 [connection signal="body_entered" from="World/Camps/Camp2" to="World/Camps/Camp2" method="_on_Camp2_body_entered"]

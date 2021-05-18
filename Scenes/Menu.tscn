@@ -72,6 +72,7 @@ margin_top = 89.0
 margin_right = 169.0
 margin_bottom = 109.0
 text = "A"
+
 [connection signal="ready" from="." to="." method="_on_Menu_ready"]
 [connection signal="text_changed" from="PlayerName" to="." method="_on_PlayerName_text_changed"]
 [connection signal="pressed" from="JoinButton" to="." method="_on_JoinButton_pressed"]
