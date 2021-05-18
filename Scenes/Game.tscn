@@ -1,0 +1,140 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Entities/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entities/Objects/Flag.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Camp.gd" type="Script" id=4]
+[ext_resource path="res://Entities/Objects/tree/Tree.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Game.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Tilemaps/Main.tres" type="TileSet" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 78.5299, 95 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 6 )
+
+[node name="World" type="YSort" parent="."]
+sort_enabled = false
+
+[node name="ColorRect" type="ColorRect" parent="World"]
+margin_left = -1.0
+margin_top = -57.0
+margin_right = 564.0
+margin_bottom = 217.0
+color = Color( 0.231373, 0.627451, 0.368627, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Camps" type="YSort" parent="World"]
+
+[node name="TileCamp" type="TileMap" parent="World/Camps"]
+tile_set = ExtResource( 7 )
+cell_size = Vector2( 16, 16 )
+cell_y_sort = true
+format = 1
+tile_data = PoolIntArray( -131066, 7, 0, -131065, 7, 1, -131064, 7, 1, -131063, 7, 1, -131062, 7, 1, -131061, 7, 1, -131060, 7, 1, -131059, 7, 1, -131058, 7, 1, -131057, 7, 1, -131056, 7, 2, -131055, 7, 1, -131054, 7, 1, -131053, 7, 1, -131052, 7, 1, -131051, 7, 1, -131050, 7, 1, -131049, 7, 1, -131048, 7, 1, -131047, 7, 1, -131046, 7, 5, -65530, 7, 131074, -65520, 7, 65536, -65510, 7, 131077, 6, 7, 131074, 16, 7, 65536, 26, 7, 131077, 65542, 7, 131074, 65552, 7, 65536, 65562, 7, 131077, 131075, 7, 0, 131076, 7, 196611, 131077, 7, 196611, 131078, 7, 196613, 131088, 7, 65536, 131098, 7, 196608, 131099, 7, 327683, 131100, 7, 327683, 131101, 7, 5, 196611, 7, 262149, 196614, 7, 262144, 196624, 7, 65536, 196634, 7, 131077, 196637, 7, 262149, 262147, 7, 262149, 262150, 7, 262144, 262160, 7, 65536, 262170, 7, 131077, 262173, 7, 262149, 327683, 7, 262149, 327686, 7, 262144, 327696, 7, 65536, 327706, 7, 131077, 327709, 7, 262149, 393219, 7, 327680, 393220, 7, 327684, 393221, 7, 196611, 393222, 7, 196613, 393232, 7, 65536, 393242, 7, 196608, 393243, 7, 327683, 393244, 7, 327683, 393245, 7, 327685, 458758, 7, 262144, 458768, 7, 65536, 458778, 7, 131077, 524294, 7, 262144, 524304, 7, 65536, 524314, 7, 131077, 589830, 7, 262144, 589840, 7, 65536, 589850, 7, 131077, 655366, 7, 327680, 655367, 7, 327683, 655368, 7, 327683, 655369, 7, 327683, 655370, 7, 327683, 655371, 7, 327683, 655372, 7, 327683, 655373, 7, 327683, 655374, 7, 327683, 655375, 7, 327683, 655376, 7, 327682, 655377, 7, 327683, 655378, 7, 327683, 655379, 7, 327683, 655380, 7, 327683, 655381, 7, 327683, 655382, 7, 327683, 655383, 7, 327683, 655384, 7, 327683, 655385, 7, 327683, 655386, 7, 327685 )
+
+[node name="Camp" type="Area2D" parent="World/Camps"]
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Camps/Camp"]
+position = Vector2( 184, 72 )
+shape = SubResource( 1 )
+
+[node name="Camp2" type="Area2D" parent="World/Camps"]
+script = ExtResource( 4 )
+team = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Camps/Camp2"]
+position = Vector2( 342, 72 )
+shape = SubResource( 1 )
+
+[node name="Objects" type="YSort" parent="World"]
+
+[node name="Trees" type="YSort" parent="World/Objects"]
+
+[node name="Tree4" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 461, -3 )
+scale = Vector2( 2.14839, 2.14839 )
+flip_h = true
+
+[node name="Tree3" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 504, 38 )
+scale = Vector2( 2.14839, 2.14839 )
+flip_h = true
+
+[node name="Tree2" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 205, -28 )
+scale = Vector2( 2.14839, 2.14839 )
+
+[node name="Tree" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 117, 176 )
+scale = Vector2( 2.14839, 2.14839 )
+
+[node name="Tree11" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 27, 15 )
+scale = Vector2( 2.14839, 2.14839 )
+flip_h = true
+
+[node name="Tree12" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 47, 131 )
+scale = Vector2( 2.14839, 2.14839 )
+
+[node name="Tree5" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 179, 181 )
+scale = Vector2( 2.14839, 2.14839 )
+flip_h = true
+
+[node name="Tree13" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 351, 185 )
+scale = Vector2( 2.14839, 2.14839 )
+
+[node name="Tree14" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 421, 181 )
+scale = Vector2( 2.14839, 2.14839 )
+flip_h = true
+
+[node name="Tree15" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 472, 153 )
+scale = Vector2( 2.14839, 2.14839 )
+
+[node name="Tree16" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 61, -22 )
+scale = Vector2( 2.14839, 2.14839 )
+flip_h = true
+
+[node name="Tree6" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 9, 111 )
+scale = Vector2( 2.14839, 2.14839 )
+
+[node name="Tree7" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 23, 73 )
+scale = Vector2( 2.14839, 2.14839 )
+flip_h = true
+
+[node name="Tree8" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 61, 183 )
+scale = Vector2( 2.14839, 2.14839 )
+
+[node name="Tree9" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 27, -47 )
+scale = Vector2( 2.14839, 2.14839 )
+flip_h = true
+
+[node name="Tree10" parent="World/Objects/Trees" instance=ExtResource( 5 )]
+position = Vector2( 502, 96 )
+scale = Vector2( 2.14839, 2.14839 )
+
+[node name="Player" parent="World/Objects" instance=ExtResource( 1 )]
+position = Vector2( 191.552, 64.8939 )
+
+[node name="FlagB" parent="World/Objects" instance=ExtResource( 3 )]
+position = Vector2( 447, 71 )
+team = 1
+
+[node name="FlagA" parent="World/Objects" instance=ExtResource( 3 )]
+position = Vector2( 80, 70 )
+
+[connection signal="body_entered" from="World/Camps/Camp" to="World/Camps/Camp" method="_on_Camp_body_entered"]
+[connection signal="body_entered" from="World/Camps/Camp2" to="World/Camps/Camp2" method="_on_Camp2_body_entered"]

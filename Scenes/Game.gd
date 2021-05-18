@@ -2,9 +2,10 @@ extends Node
 
 
 func _ready():
-	get_tree().connect('network_peer_disconnected', self, '_on_player_disconnected')
-	get_tree().connect("server_disconnected", self, "_on_server_disconnected")
-	instantiate_player()
+	pass
+#	get_tree().connect('network_peer_disconnected', self, '_on_player_disconnected')
+#	get_tree().connect("server_disconnected", self, "_on_server_disconnected")
+#	instantiate_player()
 
 func instantiate_player():
 	var new_player = preload("res://Entities/Player/Player.tscn").instance()
